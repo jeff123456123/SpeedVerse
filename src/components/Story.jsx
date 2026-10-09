@@ -46,15 +46,15 @@ const FloatingImage = () => {
   };
 
   return (
-    <div id="story" className="min-h-dvh w-screen bg-black text-blue-50">
+    <div id="story" className="min-h-dvh w-screen bg-black text-white">
       <div className="flex size-full flex-col items-center py-10 pb-24">
         <p className="font-general text-sm uppercase md:text-[10px]">
-          the multiversal ip world
+          from livestreams to world tours
         </p>
 
         <div className="relative size-full">
           <AnimatedTitle
-            title="the st<b>o</b>ry of <br /> a hidden real<b>m</b>"
+            title="the <b>S</b>peedverse <br /> around the w<b>o</b>rld"
             containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
           />
 
@@ -67,8 +67,8 @@ const FloatingImage = () => {
                   onMouseLeave={handleMouseLeave}
                   onMouseUp={handleMouseLeave}
                   onMouseEnter={handleMouseLeave}
-                  src="/img/entrance.webp"
-                  alt="entrance.webp"
+                  src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1800&q=85"
+                  alt="Athlete celebrating in a stadium"
                   className="object-contain"
                 />
               </div>
@@ -105,15 +105,15 @@ const FloatingImage = () => {
 
         <div className="-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
-            <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
-              Where realms converge, lies Zentry and the boundless pillar.
-              Discover its secrets and shape your fate amidst infinite
-              opportunities.
+            <p className="mt-3 max-w-sm text-center font-circular-web text-white md:text-start">
+              From football fever to meeting fans across continents, every stop
+              on IShowSpeed&apos;s world tour brings a new story and a new reason to
+              shout SIUUU.
             </p>
 
             <Button
-              id="realm-btn"
-              title="discover prologue"
+              id="speed-story-btn"
+              title="Explore the story"
               containerClass="mt-5"
             />
           </div>

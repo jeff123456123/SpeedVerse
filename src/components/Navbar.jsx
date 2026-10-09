@@ -3,10 +3,11 @@ import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 import Button from "./Button";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
+const navItems = ["About", "Highlights", "Story", "Contact"];
 
 const NavBar = () => {
   // State for toggling audio and visual indicator
@@ -71,28 +72,46 @@ const NavBar = () => {
         <nav className="flex size-full items-center justify-between p-4">
           {/* Logo and Product button */}
           <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
+            <Link to="/" className="font-speedverse text-lg font-black tracking-wider text-white">
+              SPEED<span className="text-red">VERSE</span>
+            </Link>
 
             <Button
               id="product-button"
-              title="Products"
+              title="SIUUU"
               rightIcon={<TiLocationArrow />}
-              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+              containerClass="md:flex hidden items-center justify-center gap-1"
             />
           </div>
 
           {/* Navigation Links and Audio Button */}
           <div className="flex h-full items-center">
             <div className="hidden md:block">
+              <Link to="/" className="nav-hover-btn">
+                Home
+              </Link>
               {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={`#${item.toLowerCase()}`}
-                  className="nav-hover-btn"
-                >
-                  {item}
-                </a>
+                item === "Contact" ? (
+                  <Link
+                    key={index}
+                    to="/#contact"
+                    className="nav-hover-btn"
+                  >
+                    {item}
+                  </Link>
+                ) : (
+                  <a
+                    key={index}
+                    href={`#${item.toLowerCase()}`}
+                    className="nav-hover-btn"
+                  >
+                    {item}
+                  </a>
+                )
               ))}
+              <Link to="/join" className="nav-hover-btn">
+                Join
+              </Link>
             </div>
 
             <button

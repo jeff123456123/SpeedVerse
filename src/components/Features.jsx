@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 
 export const BentoTilt = ({ children, className = "" }) => {
@@ -38,6 +38,47 @@ export const BentoTilt = ({ children, className = "" }) => {
   );
 };
 
+const LazyVideo = ({ src, className }) => {
+  const videoRef = useRef(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsNearViewport(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={isNearViewport ? src : undefined}
+      loop
+      muted
+      autoPlay={isNearViewport}
+      playsInline
+      preload="none"
+      className={className}
+    />
+  );
+};
+
 export const BentoCard = ({ src, title, description, isComingSoon }) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverOpacity, setHoverOpacity] = useState(0);
@@ -58,14 +99,11 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
 
   return (
     <div className="relative size-full">
-      <video
+      <LazyVideo
         src={src}
-        loop
-        muted
-        autoPlay
         className="absolute left-0 top-0 size-full object-cover object-center"
       />
-      <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
+      <div className="relative z-10 flex size-full flex-col justify-between p-5 text-white">
         <div>
           <h1 className="bento-title special-font">{title}</h1>
           {description && (
@@ -86,11 +124,11 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
               className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
               style={{
                 opacity: hoverOpacity,
-                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
+                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #e1060088, #00000026)`,
               }}
             />
             <TiLocationArrow className="relative z-20" />
-            <p className="relative z-20">coming soon</p>
+            <p className="relative z-20">More moments</p>
           </div>
         )}
       </div>
@@ -99,16 +137,15 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
 };
 
 const Features = () => (
-  <section className="bg-black pb-52">
+  <section id="highlights" className="bg-black pb-52">
     <div className="container mx-auto px-3 md:px-10">
       <div className="px-5 py-32">
-        <p className="font-circular-web text-lg text-blue-50">
-          Into the Metagame Layer
+        <p className="font-circular-web text-lg text-white">
+          The world of IShowSpeed
         </p>
-        <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
-          Immerse yourself in a rich and ever-expanding universe where a vibrant
-          array of products converge into an interconnected overlay experience
-          on your world.
+        <p className="max-w-md font-circular-web text-lg text-white opacity-50">
+          Catch the SIUUU moments, football challenges, live reactions and
+          travels that make every Speed stream an event.
         </p>
       </div>
 
@@ -117,10 +154,10 @@ const Features = () => (
           src="videos/feature-1.mp4"
           title={
             <>
-              radia<b>n</b>t
+              SIUU<b>U</b>
             </>
           }
-          description="A cross-platform metagame app, turning your activities across Web2 and Web3 games into a rewarding adventure."
+          description="The iconic SIUUU celebration that turned every big moment into a stadium-wide event."
           isComingSoon
         />
       </BentoTilt>
@@ -131,10 +168,10 @@ const Features = () => (
             src="videos/feature-2.mp4"
             title={
               <>
-                zig<b>m</b>a
+                w<b>o</b>rld tour
               </>
             }
-            description="An anime and gaming-inspired NFT collection - the IP primed for expansion."
+            description="From city streets to packed arenas, follow Speed's unforgettable world tours."
             isComingSoon
           />
         </BentoTilt>
@@ -144,10 +181,10 @@ const Features = () => (
             src="videos/feature-3.mp4"
             title={
               <>
-                n<b>e</b>xus
+                foot<b>b</b>all
               </>
             }
-            description="A gamified social hub, adding a new dimension of play to social interaction for Web3 communities."
+            description="Big goals, wild challenges and football moments with the energy only Speed brings."
             isComingSoon
           />
         </BentoTilt>
@@ -157,18 +194,18 @@ const Features = () => (
             src="videos/feature-4.mp4"
             title={
               <>
-                az<b>u</b>l
+                rea<b>c</b>tions
               </>
             }
-            description="A cross-world AI Agent - elevating your gameplay to be more fun and productive."
+            description="Unfiltered reactions to sports, music and the internet's most unexpected moments."
             isComingSoon
           />
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_2">
-          <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
+          <div className="flex size-full flex-col justify-between bg-red p-5">
             <h1 className="bento-title special-font max-w-64 text-black">
-              M<b>o</b>re co<b>m</b>ing s<b>o</b>on.
+              SIUU<b>U</b>!
             </h1>
 
             <TiLocationArrow className="m-5 scale-[5] self-end" />
@@ -176,11 +213,8 @@ const Features = () => (
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_2">
-          <video
+          <LazyVideo
             src="videos/feature-5.mp4"
-            loop
-            muted
-            autoPlay
             className="size-full object-cover object-center"
           />
         </BentoTilt>
